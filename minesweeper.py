@@ -27,7 +27,7 @@ for i in range(480):
 flags = set()
 clicks = set()
 table = list()
-tmptable = driver.find_elements_by_class_name("square.blank")
+tmptable = driver.find_elements(By.CLASS_NAME,"square.blank")
 for i in range(480):
     table.append(tmptable[i])
 
@@ -61,7 +61,7 @@ while len(finishedcell) != 480:
     clicks = set()
 
     for i in range(0,9):
-        blocks =  driver.find_elements_by_class_name("open"+str(i))
+        blocks =  driver.find_elements(By.CLASS_NAME,"open"+str(i))
         # print(len(blocks))
         for block in blocks:
             if block in readedcell:
