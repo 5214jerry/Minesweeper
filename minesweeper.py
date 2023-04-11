@@ -31,7 +31,7 @@ tmptable = driver.find_elements(By.CLASS_NAME,"square.blank")
 for i in range(480):
     table.append(tmptable[i])
 
-table[0].click()
+table[60].click()
 time.sleep(1)
 randomopen = False
 while len(finishedcell) != 480:
