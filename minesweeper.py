@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 options=Options()
-PATH="Minesweeper-main/chromedriver.exe"
+PATH="chromedriver.exe"
 
 driver = webdriver.Chrome(executable_path=PATH,chrome_options=options)
 driver.get("https://minesweeperonline.com/")
