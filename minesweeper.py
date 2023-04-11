@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 options=Options()
-PATH="C:/Users/User/OneDrive/桌面/code/chromedriver.exe"
+PATH="chromedriver.exe"
 
 driver = webdriver.Chrome(executable_path=PATH,chrome_options=options)
 driver.get("https://minesweeperonline.com/")
@@ -31,11 +31,11 @@ tmptable = driver.find_elements(By.CLASS_NAME,"square.blank")
 for i in range(480):
     table.append(tmptable[i])
 
-table[0].click()
+table[60].click()
 time.sleep(1)
 randomopen = False
 while len(finishedcell) != 480:
-    time.sleep(0.4)
+    # time.sleep(0.4)
     # print(flags)
 
     #插旗
@@ -98,9 +98,9 @@ while len(finishedcell) != 480:
                         continue
                     table[index+i].click()
                     print("click="+str(index))
-                finishedcell.add(index)
+                # finishedcell.add(index)
                 continue
-            uc = 0 #unopen_count
+            unopen_count = 0 
             tmpflags = set()
             sideopened = set()
             for i in (-31,-30,-29,-1,1,29,30,31):
@@ -111,19 +111,23 @@ while len(finishedcell) != 480:
                 if index%30 == 0 and (i in (-31,-1,29)):
                     continue
                 if board[index+i] >= 100 :
-                    uc = uc+1
+                    unopen_count = unopen_count+1
                     tmpflags.add(index+i)
                     continue
-                if board[index+i] <=9 and board[index+i]>=1 and i in(-30,-1,1,30):
+                if board[index+i] <=9 and board[index+i]>=1:
                     sideopened.add(index+i)
                     continue
+            
+            if unopen_count == 0:
+                finishedcell.add(index)
+                continue
 
-            if uc == block:
+            if unopen_count == block:
                 flags = flags | tmpflags
                 continue
             
             sideopened = sideopened - finishedcell
-            if uc == block+1:
+            if unopen_count == block+1:
                 # print(sideopened)
                 for index2 in sideopened:
                     check = 0
@@ -150,5 +154,5 @@ while len(finishedcell) != 480:
                     if board[index2]-1 <= 0 and check >=2:
                         clicks = clicks | tmpclicks
                         continue
-                    if board[index2]-1 == uc2 and check >=2 and uc == 2:
+                    if board[index2]-1 == uc2 and check >=2 and unopen_count == 2:
                         flags = flags | tmpclicks
